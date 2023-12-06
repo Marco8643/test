@@ -28,15 +28,6 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Marco
 local example = library:CreateWindow({
   text = "Kaiju Universe"
 })
-example:AddLabel("Autofarm Speed",function()
-end)
-example:AddBox("Speed", function(object, focus)
-    if focus then
-   
-        _G.tp = tonumber(object.Text)
-    end
-    end)
-
     example:AddLabel("Auto Use Skill",function()
     end)
     example:AddBox("Skill Name", function(object, focus)
@@ -171,18 +162,6 @@ end
              end
     end
     wait(1)
-    end
-end)
-end
-end)
-example:AddToggle("Auto Hide User", function(state)
-    _G.nametag = (state and true or false)
-    while _G.nametag do
-    wait()
-    pcall(function()
-    if game.Players.LocalPlayer.Character.Head:FindFirstChild("Nametag") then
-    game.Players.LocalPlayer.Character.Head.Nametag:Destroy()
-    wait()
     end
 end)
 end
