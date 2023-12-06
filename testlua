@@ -113,7 +113,7 @@ repeat wait()
         local ClickToMoveController = PlayerModule:GetClickToMoveController()
         ClickToMoveController:SetShowPath(false)
         ClickToMoveController:SetUserJumpEnabled(false)
-        ClickToMoveController:MoveTo(location,true)
+        ClickToMoveController:MoveTo(_G.rat.Position,true)
 until game.Players.LocalPlayer:DistanceFromCharacter(_G.rat.Position) < 60 or _G.test == false or _G.rat == nil
     game.Players.LocalPlayer.Character.ClientRunner.KaijuControlEvent:FireServer(_G.skillname)
 end)
