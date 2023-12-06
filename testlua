@@ -1,5 +1,5 @@
-getfenv.distance = 300
-getfenv.tp = 1
+getfenv().distance = 300
+getfenv().tp = 1
 local mt = getrawmetatable(game);
 setreadonly(mt,false)
 local namecall = mt.__namecall
@@ -9,9 +9,9 @@ mt.__namecall = newcclosure(function(self, ...)
     local Args = {...}
     
     if Method == 'InvokeServer' and self.Name == 'Morph' then
- getfenv.crack = Args[1]
- getfenv.crack1 = Args[2]
- getfenv.crack3 = Args[4]
+ getfenv().crack = Args[1]
+ getfenv().crack1 = Args[2]
+ getfenv().crack3 = Args[4]
     end
     
     return namecall(self, ...) 
@@ -32,14 +32,14 @@ local example = library:CreateWindow({
     end)
     example:AddBox("Skill Name", function(object, focus)
         if focus then
-            getfenv.skillname = tostring(object.Text)
+            getfenv().skillname = tostring(object.Text)
 for i,v in pairs(getgc(true)) do
     if type(v) == "table" and rawget(v,"ID") ~= nil then
 if type(v.ID) ~= "number" then
 local test = v.ID:split("#")
-if test[1] == getfenv.skillname then
+if test[1] == getfenv().skillname then
     print(v.ID)
- getfenv.skillname = v.ID
+ getfenv().skillname = v.ID
     end
     end
 end
@@ -51,16 +51,16 @@ end
 example:AddBox("Range", function(object, focus)
     if focus then
    
-        getfenv.distance = tonumber(object.Text)
+        getfenv().distance = tonumber(object.Text)
     end
 end)
 example:AddToggle("Use All abilities", function(state)
-    getfenv.abilitiestouse = (state and true or false)
-    while getfenv.abilitiestouse do
+    getfenv().abilitiestouse = (state and true or false)
+    while getfenv().abilitiestouse do
         wait(0.5)
         pcall(function()
     for i,v in pairs(getgc(true)) do
-    if type(v) == "table" and rawget(v,"globalCooldown") ~= nil and game.Players.LocalPlayer:DistanceFromCharacter(getfenv.rat.Position) < 100 then
+    if type(v) == "table" and rawget(v,"globalCooldown") ~= nil and game.Players.LocalPlayer:DistanceFromCharacter(getfenv().rat.Position) < 100 then
 task.wait()
 for a,b in pairs(v) do
 if a == "ID" then
@@ -74,8 +74,8 @@ end)
 end
 end)
 example:AddToggle("Use All Attack abilities", function(state)
-    getfenv.abilitiestouse2 = (state and true or false)
-    while getfenv.abilitiestouse2 do
+    getfenv().abilitiestouse2 = (state and true or false)
+    while getfenv().abilitiestouse2 do
         wait(0.5)
         pcall(function()
 			for i,v in pairs(getgc(true)) do
@@ -91,31 +91,31 @@ end)
 end
 end)
     example:AddToggle("Auto Farm", function(state)
-getfenv.test = (state and true or false)
-while getfenv.test do
+getfenv().test = (state and true or false)
+while getfenv().test do
 wait()
 pcall(function()
-getfenv.rat = nil
+getfenv().rat = nil
 		local distance = math.huge
 		for i,v in pairs(game:GetService("Workspace").Map:GetDescendants()) do
-			if v.Name == "BoundingBox" and getfenv.test == true   and v.Parent:FindFirstChild("bValues") and v.Parent.bValues:FindFirstChild("Health") and v.Parent.bValues:FindFirstChild("Health").Value > v.Parent.bValues:FindFirstChild("MaxHealth").Value/2  and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Position).Magnitude < getfenv.distance then
+			if v.Name == "BoundingBox" and getfenv().test == true   and v.Parent:FindFirstChild("bValues") and v.Parent.bValues:FindFirstChild("Health") and v.Parent.bValues:FindFirstChild("Health").Value > v.Parent.bValues:FindFirstChild("MaxHealth").Value/2  and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-v.Position).Magnitude < getfenv().distance then
 		local Dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude
 		if Dist < distance then
 		distance = Dist
-		getfenv.rat = v
+		getfenv().rat = v
 		end
 			end
 	end
 repeat wait()
-		local location = getfenv.rat.Position
+		local location = getfenv().rat.Position
         local LocalPlayer = game:GetService("Players").LocalPlayer
         local PlayerModule = require(LocalPlayer.PlayerScripts.PlayerModule)
         local ClickToMoveController = PlayerModule:GetClickToMoveController()
         ClickToMoveController:SetShowPath(false)
         ClickToMoveController:SetUserJumpEnabled(false)
-        ClickToMoveController:MoveTo(getfenv.rat.Position,true)
-until game.Players.LocalPlayer:DistanceFromCharacter(getfenv.rat.Position) < 100 or getfenv.test == false or getfenv.rat == nil
-    game.Players.LocalPlayer.Character.ClientRunner.KaijuControlEvent:FireServer(getfenv.skillname)
+        ClickToMoveController:MoveTo(getfenv().rat.Position,true)
+until game.Players.LocalPlayer:DistanceFromCharacter(getfenv().rat.Position) < 100 or getfenv().test == false or getfenv().rat == nil
+    game.Players.LocalPlayer.Character.ClientRunner.KaijuControlEvent:FireServer(getfenv().skillname)
 end)
 end
 end)
@@ -123,38 +123,38 @@ local example = library:CreateWindow({
     text = "Stuff"
   })
   example:AddToggle("Auto Respawn", function(state)
-    getfenv.autospawn = (state and true or false)
-    while getfenv.autospawn do
+    getfenv().autospawn = (state and true or false)
+    while getfenv().autospawn do
         wait()
         pcall(function()
-  if getfenv.crack ~= nil and game:GetService("Players").LocalPlayer.PlayerGui.newUI.PlayingUI.Visible == false  then
-    game:GetService("ReplicatedStorage").Packages.Knit.Services.KaijuService.RF.Morph:InvokeServer(getfenv.crack, getfenv.crack1,nil,getfenv.crack3)
+  if getfenv().crack ~= nil and game:GetService("Players").LocalPlayer.PlayerGui.newUI.PlayingUI.Visible == false  then
+    game:GetService("ReplicatedStorage").Packages.Knit.Services.KaijuService.RF.Morph:InvokeServer(getfenv().crack, getfenv().crack1,nil,getfenv().crack3)
     wait(5)
 for i,v in pairs(getgc(true)) do
     if type(v) == "table" and rawget(v,"ID") ~= nil then
 if type(v.ID) ~= "number" then
 local test = v.ID:split("#")
-local test2 = getfenv.skillname:split("#")
+local test2 = getfenv().skillname:split("#")
 if test[1] == test2[1] then
- getfenv.skillname = v.ID
+ getfenv().skillname = v.ID
     end
     end
 end
 end
     wait(10)
-    elseif getfenv.crack2 ~= nil and game:GetService("Players").LocalPlayer.PlayerGui.newUI.PlayingUI.Visible == false then
+    elseif getfenv().crack2 ~= nil and game:GetService("Players").LocalPlayer.PlayerGui.newUI.PlayingUI.Visible == false then
     local test = math.random(1,4)
     for i,v in pairs(game:GetService("ReplicatedStorage").ReplicatedAssets.SpawnLocations:GetChildren()) do
      if i == test and game.Players.LocalPlayer.Character.Parent == nil then
-    game:GetService("ReplicatedStorage").Packages.Knit.Services.KaijuService.RF.Morph:InvokeServer(getfenv.crack2,v,nil,getfenv.crack3)
+    game:GetService("ReplicatedStorage").Packages.Knit.Services.KaijuService.RF.Morph:InvokeServer(getfenv().crack2,v,nil,getfenv().crack3)
     wait(5)
 for i,v in pairs(getgc(true)) do
     if type(v) == "table" and rawget(v,"ID") ~= nil then
 if type(v.ID) ~= "number" then
 local test = v.ID:split("#")
-local test2 = getfenv.skillname:split("#")
+local test2 = getfenv().skillname:split("#")
 if test[1] == test2[1] then
- getfenv.skillname = v.ID
+ getfenv().skillname = v.ID
     end
     end
 end
@@ -172,8 +172,8 @@ end)
 spawn(function()
     while wait() do
         pcall(function()
-    if getfenv.crack2 == nil and game.Players.LocalPlayer.Character ~= nil then
-        getfenv.crack2 = game.Players.LocalPlayer.Character.Parent.Name
+    if getfenv().crack2 == nil and game.Players.LocalPlayer.Character ~= nil then
+        getfenv().crack2 = game.Players.LocalPlayer.Character.Parent.Name
         wait()
     end
 end)
