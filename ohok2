@@ -1,4 +1,4 @@
-warn("latest")
+warn("latest update")
 if workspace:FindFirstChild("WorkspaceChunkStorage") then
     local func 
     for i,v in pairs(getgc(true)) do
