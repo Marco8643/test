@@ -1,9 +1,4 @@
-warn("Anti afk running")
-game:GetService("Players").LocalPlayer.Idled:connect(function()
-warn("Anti afk ran")
-game:GetService("VirtualUser"):CaptureController()
-game:GetService("VirtualUser"):ClickButton2(Vector2.new())
-end)
+
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Marco8642/science/main/ui%20libs2", true))()
 local example = library:CreateWindow({
   text = "Highway Hooligans"
@@ -48,7 +43,7 @@ local example = library:CreateWindow({
   example:AddButton("Ai Traffic Remover", function()
     for i,v in pairs(getgc(true)) do
         if type(v) == "function" and getfenv(v).script == game:GetService("ReplicatedStorage").Client.Systems.Traffic then
-            hookfunction(v,function(...)
+            local old; old = hookfunction(v,function(...)
                 return
                    end)
         end
