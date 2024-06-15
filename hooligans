@@ -48,7 +48,7 @@ local example = library:CreateWindow({
   example:AddButton("Ai Traffic Remover", function()
     for i,v in pairs(getgc(true)) do
         if type(v) == "function" and getfenv(v).script == game:GetService("ReplicatedStorage").Client.Systems.Traffic then
-            local old; old = hookfunction(v,function(...)
+            hookfunction(v,function(...)
                 return
                    end)
         end
