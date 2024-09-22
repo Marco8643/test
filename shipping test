@@ -1,0 +1,1078 @@
+local mt = getrawmetatable(game);
+setreadonly(mt,false)
+local namecall = mt.__namecall
+mt.__namecall = newcclosure(function(self, ...)
+	local Method = getnamecallmethod()
+	local Args = {...}
+
+	if Method == 'FireServer'  and tostring(Args[1]) == "ClientLaggy" then
+        print("okay")
+return nil
+	end
+	return namecall(self, ...) 
+end)
+if workspace:FindFirstChild("WorkspaceChunkStorage") then
+    local func 
+    for i,v in pairs(getgc(true)) do
+        if type(v) == "function" and getinfo(v).name == "Checklandmass" or type(v) == "function" and getinfo(v).name == "CheckChunks" then
+            warn(getinfo(v).name)
+            func = v
+            local old = hookfunction(func,function(...)
+                return nil
+                end)
+        end
+    end
+    workspace.WorkspaceChunkStorage:Destroy()
+end
+wait(3)
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+spawn(function()
+while wait() do
+	pcall(function()
+if getfenv().ship == nil and game.Players.LocalPlayer.Character.Humanoid.SeatPart ~= nil then
+for i,v in pairs(getgc(true)) do
+if type(v) == "table" and rawget(v,"ID") == game.Players.LocalPlayer.CurrentShip.Value:GetAttribute("ShipID") then
+getfenv().ship = v
+	end
+end
+end
+end)
+end
+end)
+local function speed()
+    local speed = nil
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+local r = require(game:GetService("StarterGui").GlobalUI.Main.Scripts.SpawnController)
+r:UpdateSpawnShips()
+for i,v in pairs(game:GetService("StarterGui").GlobalUI.Main.ShipSelector.SpawnMenu.ScrollingFrame:GetDescendants()) do
+    if v.Name == "ShipClass" and v.Text == ship.Name then
+        local text = v.Parent.TopSpeed.Text:split(":")[2]
+        local text2 = text:split("Knots")[1]
+        speed = tonumber(text2)
+    end
+end
+return speed
+end
+local function getdata()
+    local ship = game.Players.LocalPlayer.CurrentShip.Value
+    local class = nil
+    local data = require(game:GetService("ReplicatedStorage").GlobalReplicated.GlobalConfig)
+    for i,v in pairs(data.Ships) do
+    if v[1] == ship.Name then
+     for a,b in pairs(v) do
+    class = v.Class
+    print(a,b)
+    end
+    end
+    end
+    return class
+end
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Marco8642/science/main/ui%20libs2", true))()
+local example = library:CreateWindow({
+  text = "Shipping Lanes"
+})
+example:AddBox("Enter Ship Speed", function(object, focus)
+	if focus then
+		getfenv().speed = tonumber(object.Text)
+	end
+end)
+example:AddLabel("auto farm stuff", function(object, focus)
+end)
+labeler=example:AddLabel("Disabled", function()
+end)
+labeler.BackgroundTransparency = 0
+labeler.BackgroundColor3 = Color3.fromRGB(64,64,64)
+labeler.BorderSizePixel = 0
+labeler.TextXAlignment = "Center"
+example:AddToggle("Auto Farm", function(state)
+getfenv().test = (state and true or false)
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+local lastpos = ship.PrimaryPart.Position
+spawn(function()
+
+    while getfenv().test do
+        wait()
+        local p,call=pcall(function()
+            if getfenv().forlocres ~= nil then
+        if (ship.PrimaryPart.Position-getfenv().forlocres).magnitude > (lastpos-getfenv().forlocres).magnitude and (ship.PrimaryPart.Position-getfenv().forlocres).magnitude > 200  then
+        lastpos = ship.PrimaryPart.Position
+        getfenv().tween:Cancel()
+        wait(10)
+        lastpos = ship.PrimaryPart.Position
+        elseif (ship.PrimaryPart.Position-getfenv().forlocres).magnitude < (lastpos-getfenv().forlocres).magnitude then
+            lastpos = ship.PrimaryPart.Position
+    end
+end
+    end)
+    if p == false then
+        warn(p,call)
+    end
+    end
+    end)
+labeler.Text = "Disabled"
+if getdata() == "Container" then
+    wait()
+    labeler.Text = "Container Class Ship Found"
+getfenv().ship = nil
+local r = require(game:GetService("StarterGui").GlobalUI.Main.Scripts.SpawnController)
+r:UpdateSpawnShips()
+local farmnum = 0
+while getfenv().test do
+	wait()
+    print("yes")
+        getfenv().started = true
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+         if not game.Players.LocalPlayer.CurrentShip.Value.ContainerBlocks:FindFirstChildOfClass("Part") then
+            warn("no fucking way")
+         if ship:GetAttribute("IsDocked") == true and game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+             local dockport = game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortManager.DockedPort.Value
+             if game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortMainMenu.PortName.Text ~= "Ocean Fall Port" then
+                 getfenv().rightone = false
+                 repeat wait()
+                     if not dockport:IsDescendantOf(workspace.Ports["Ocean Fall Port"]) then
+                     if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+                         pcall(function()
+                     getsenv(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortManager):UndockShip()
+                         end)
+                     end
+                 elseif dockport:IsDescendantOf(workspace.Ports["Ocean Fall Port"]) then
+                     getfenv().rightone = true
+                 end
+                 until not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") or getfenv().test == false or getfenv().rightone == true or ship == nil
+                 wait()
+             end
+         end
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+         getfenv().rat = nil
+         local distance = math.huge
+         for a,b in pairs(workspace.Ports["Ocean Fall Port"].CargoLoaders:GetChildren()) do
+             if b.Name == "DockingArea" and b:FindFirstChild("Container")  then
+         local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+         if Dist < distance then
+         distance = Dist
+         getfenv().rat = b
+         end
+         end
+         end
+         wait()
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+         if not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+             repeat task.wait()
+             local distance = math.huge
+             for a,b in pairs(workspace.Ports["Ocean Fall Port"].CargoLoaders:GetChildren()) do
+                 if b.Name == "DockingArea" and b:FindFirstChild("Container")  then
+             local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+             if Dist < distance then
+             distance = Dist
+             getfenv().rat = b
+             end
+             end
+             end
+             wait()
+             labeler.Text = "Moving to docking"
+             local ship = game.Players.LocalPlayer.CurrentShip.Value
+             dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+             if dist > 100.5 then
+             local ship = game.Players.LocalPlayer.CurrentShip.Value
+             repeat task.wait()
+                local speed = getfenv().speed or 150
+                dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+               ship.PrimaryPart.AssemblyLinearVelocity = (getfenv().rat.Position- ship.PrimaryPart.Position).Unit*speed
+             until dist < 100.5 or  getfenv().test == false
+             print("ur mom") 
+            else
+                local ship = game.Players.LocalPlayer.CurrentShip.Value
+                ship.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0,0,0)
+                 require(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Controller.Modules.InteractionZonesModule):DockShip()
+            end
+         until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui")
+     
+     print("step 1 completed")
+     repeat wait()
+     until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("PortMainMenu").Visible == true or getfenv().test == false or ship == nil
+     wait(2)
+     require(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.Scripts.ContainerController):DisplayLoading()
+     wait(2)
+     local uifix = nil
+     wait()
+     labeler.Text = "Getting Shipment"
+     repeat wait()
+         pcall(function()
+     local dockport = game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortManager.DockedPort.Value
+     for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.ContainerMenu.ScrollingFrame:GetChildren()) do
+         if v.Name == "ListItem" and v:FindFirstChild("PortName") and v.PortName.Text == "Davenport" and dockport:IsDescendantOf(workspace.Ports["Ocean Fall Port"]) then
+             local ship = game.Players.LocalPlayer.CurrentShip.Value
+     ship.Storage.RemoteFunction:InvokeServer("LoadContainer", i-3, v.TextBox.Text)
+     uifix = v
+         end
+     end
+     end)
+     until uifix ~= nil or ship == nil
+     print("step 2 completed")
+     wait()
+     repeat wait()
+         if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+             pcall(function()
+         getsenv(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortManager):UndockShip()
+             end)
+         end
+     until not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") or getfenv().test == false or ship == nil
+    end
+     warn("step 3 completed")
+     getfenv().run = nil
+     warn("waiting 5 minutes")
+     getfenv().started = false
+     getfenv().rat = nil
+     print(speed())
+     wait(5)
+     local distance = math.huge
+     for a,b in pairs(workspace.Ports["Davenport"].CargoLoaders:GetChildren()) do
+         if b.Name == "DockingArea" and b:FindFirstChild("Container")  then
+     local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+     if Dist < distance then
+     distance = Dist
+     getfenv().rat = b
+     end
+     end
+     end
+     wait()
+     labeler.Text = "Delivering Shipment"
+     repeat task.wait()
+        local distance = math.huge
+        for a,b in pairs(workspace.Ports["Davenport"].CargoLoaders:GetChildren()) do
+            if b.Name == "DockingArea" and b:FindFirstChild("Container")  then
+        local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+        if Dist < distance then
+        distance = Dist
+        getfenv().rat = b
+        end
+        end
+        end
+        wait()
+        if not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+             dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+             if dist > 100.5 then
+                local ship = game.Players.LocalPlayer.CurrentShip.Value
+                repeat task.wait()
+                    local speed = getfenv().speed or 150
+                 dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+                ship.PrimaryPart.AssemblyLinearVelocity = (getfenv().rat.Position- ship.PrimaryPart.Position).Unit*speed
+                until dist < 100.5 or  getfenv().test == false
+              
+                repeat task.wait()
+                until getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled or getfenv().tween.PlaybackState == Enum.PlaybackState.Completed or getfenv().tween.PlaybackState == Enum.PlaybackState.Paused
+             print("ur mom") 
+             wait(5)
+            else
+                local ship = game.Players.LocalPlayer.CurrentShip.Value
+                ship.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0,0,0)
+             require(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Controller.Modules.InteractionZonesModule):DockShip()
+            end
+        end
+     wait(1)
+     until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") or ship == nil
+     print("step 4 completed")
+     repeat wait()
+        local ship = game.Players.LocalPlayer.CurrentShip.Value
+        ship.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0,0,0)
+         require(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Controller.Modules.InteractionZonesModule):DockShip()
+     until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui")or getfenv().test == false or ship == nil
+     wait(2)
+     require(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.Scripts.ContainerController):DisplayUnloading()
+     wait(1)
+     local money = game:GetService("Players").LocalPlayer.PlayerGui.GlobalUI.Main.GameplayUI.Core.PlayerCash.PlayerCash.Text
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+     ship.Storage.RemoteFunction:InvokeServer("UnloadContainer", 1)
+     repeat wait()
+     until money ~= game:GetService("Players").LocalPlayer.PlayerGui.GlobalUI.Main.GameplayUI.Core.PlayerCash.PlayerCash.Text or getfenv().test == false or ship == nil
+     wait()
+     labeler.Text = "Respawning"
+     game:GetService("ReplicatedStorage").RemoteStorage.RemoteFunction:InvokeServer("SpawnShip", getfenv().ship, "Ocean Fall Port")
+     wait(5)
+     end
+    end
+elseif getdata() == "Bulk" then
+    labeler.Text = "Bulk ship found"
+    getfenv().ship = nil
+    local r = require(game:GetService("StarterGui").GlobalUI.Main.Scripts.SpawnController)
+r:UpdateSpawnShips()
+    local farmnum = 0
+    while getfenv().test do
+    	wait()
+        getfenv().started = true
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+         if ship:GetAttribute("IsDocked") == true and game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+             local dockport = game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortManager.DockedPort.Value
+             if game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortMainMenu.PortName.Text ~= "Ocean Fall Port" then
+                 getfenv().rightone = false
+                 repeat wait()
+                     if not dockport:IsDescendantOf(workspace.Ports["Ocean Fall Port"]) then
+                     if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+                         pcall(function()
+                     getsenv(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortManager):UndockShip()
+                         end)
+                     end
+                 elseif dockport:IsDescendantOf(workspace.Ports["Ocean Fall Port"]) then
+                     getfenv().rightone = true
+                 end
+                 until not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") or getfenv().test == false or getfenv().rightone == true or ship == nil
+                 wait()
+             end
+         end
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+         getfenv().rat = nil
+         local distance = math.huge
+         for a,b in pairs(workspace.Ports["Ocean Fall Port"].CargoLoaders:GetChildren()) do
+             if b.Name == "DockingArea" and b:FindFirstChild("Container")  then
+         local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+         if Dist < distance then
+         distance = Dist
+         getfenv().rat = b
+         end
+         end
+         end
+         wait()
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+         if not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+             repeat task.wait()
+             local distance = math.huge
+             for a,b in pairs(workspace.Ports["Ocean Fall Port"].CargoLoaders:GetChildren()) do
+                 if b.Name == "DockingArea" and b:FindFirstChild("Container")  then
+             local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+             if Dist < distance then
+             distance = Dist
+             getfenv().rat = b
+             end
+             end
+             end
+             wait()
+             labeler.Text = "Moving to docking"
+             local ship = game.Players.LocalPlayer.CurrentShip.Value
+             dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+             if dist > 100.5 then
+                local ship = game.Players.LocalPlayer.CurrentShip.Value
+                repeat task.wait()
+                    local speed = getfenv().speed or 150
+                 dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+                ship.PrimaryPart.AssemblyLinearVelocity = (getfenv().rat.Position- ship.PrimaryPart.Position).Unit*speed
+                until dist < 100.5 or  getfenv().test == false
+             print("ur mom") 
+            else 
+                local ship = game.Players.LocalPlayer.CurrentShip.Value
+                ship.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0,0,0)
+                 require(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Controller.Modules.InteractionZonesModule):DockShip()
+            end
+         until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui")
+     
+     print("step 1 completed")
+     repeat wait()
+     until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("PortMainMenu").Visible == true or getfenv().test == false or ship == nil     
+     wait(2)
+     local uifix = nil
+     wait()
+     labeler.Text = "Getting Shipment"
+     wait(5)
+     firesignal(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortMainMenu.MenuButtons.CargoManager.Button.MouseButton1Click)
+     wait(2)
+     local picked = nil
+     local smaller = 0
+     for a,b in pairs(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.BulkMenu.ScrollingFrame:GetChildren()) do
+         if b.Name == "ListItem"   then
+             local text = string.gsub(tostring(b.Payment.Payout.Text:split("$")[2]:split("Per")[1]),",","")
+             local num = tonumber(text)
+             print(num)
+     if num > smaller then
+     smaller = num
+     picked = b
+     print(smaller)
+     end
+     end
+     end
+     labeler.Text = "Selected Cargo:"..picked.Payment.Payout.Text
+     firesignal(picked.Load.MouseButton1Click)
+     wait(2)
+     print("step 2 completed")
+     wait()
+     repeat wait()
+         if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+             pcall(function()
+         getsenv(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortManager):UndockShip()
+             end)
+         end
+     until not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") or getfenv().test == false or ship == nil
+     print("step 3 completed")
+     getfenv().run = nil
+     warn("waiting 5 minutes")
+     getfenv().started = false
+     getfenv().rat = nil
+     print(speed())
+     wait(5)
+     local distance = math.huge
+     for a,b in pairs(workspace.Ports["Davenport"].CargoLoaders:GetChildren()) do
+         if b.Name == "DockingArea" and b:FindFirstChild("Container")  then
+     local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+     if Dist < distance then
+     distance = Dist
+     getfenv().rat = b
+     end
+     end
+     end
+     wait()
+     labeler.Text = "Delivering Shipment"
+     local ship = game.Players.LocalPlayer.CurrentShip.Value
+     dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+     
+     local ship = game.Players.LocalPlayer.CurrentShip.Value
+     local TweenService = game:GetService("TweenService")
+     local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+     
+     local TweenValue = Instance.new("CFrameValue")
+     TweenValue.Value = ship:GetPrimaryPartCFrame()
+                
+     TweenValue.Changed:Connect(function()
+           if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+     end)        
+     getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=getfenv().rat.CFrame})
+     getfenv().tween:Play()
+     repeat task.wait()
+        if (ship.PrimaryPart.Position-getfenv().forlocres).magnitude > (lastpos-getfenv().forlocres).magnitude and (ship.PrimaryPart.Position-getfenv().forlocres).magnitude > 200 and getfenv().tween ~= nil then
+            lastpos = ship.PrimaryPart.Position
+    getfenv().tween:Cancel()
+            end
+     until getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled or getfenv().tween.PlaybackState == Enum.PlaybackState.Completed or getfenv().tween.PlaybackState == Enum.PlaybackState.Paused
+     print("ur mom") 
+     getfenv().started = true
+     local ship = game.Players.LocalPlayer.CurrentShip.Value
+     repeat task.wait()
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+         if not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") then
+         getfenv().rat = nil
+         local distance = math.huge
+         for a,b in pairs(workspace.Ports["Davenport"].CargoLoaders:GetChildren()) do
+             if b.Name == "DockingArea" and b:FindFirstChild("Container")  then
+         local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+         if Dist < distance then
+         distance = Dist
+         getfenv().rat = b
+         end
+         end
+         end
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+             dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+             if dist > 100.5 then
+                local ship = game.Players.LocalPlayer.CurrentShip.Value
+                repeat task.wait()
+                    local speed = getfenv().speed or 150
+                    dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+                   ship.PrimaryPart.AssemblyLinearVelocity = (getfenv().rat.Position- ship.PrimaryPart.Position).Unit*speed
+                until dist < 100.5 or  getfenv().test == false
+             print("ur mom") 
+             wait(5)
+            else
+                local ship = game.Players.LocalPlayer.CurrentShip.Value
+                ship.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0,0,0)
+             require(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Controller.Modules.InteractionZonesModule):DockShip()
+            end
+     end
+     wait(1)
+     until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") or ship == nil
+     print("step 4 completed")
+     repeat wait()
+        local ship = game.Players.LocalPlayer.CurrentShip.Value
+        ship.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0,0,0)
+         require(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Controller.Modules.InteractionZonesModule):DockShip()
+     until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("PortMainMenu").Visible == true or getfenv().test == false or ship == nil
+     wait()
+    labeler.Text = "Ship is docked"
+    wait(3)
+    firesignal(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortMainMenu.MenuButtons.CargoManager.Button.MouseButton1Click)
+    wait(2)
+    labeler.Text = "Switching to unload mode"
+    firesignal(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.BulkMenu.SwitchMode.MouseButton1Click)
+    wait(5)
+    local money = game:GetService("Players").LocalPlayer.PlayerGui.GlobalUI.Main.GameplayUI.Core.PlayerCash.PlayerCash.Text
+    repeat wait()
+    for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.BulkMenu.ScrollingFrame:GetDescendants()) do
+        if v.Name == "Unload" then
+            firesignal(v.MouseButton1Click)
+            labeler.Text = "Unloading"
+            wait()
+    end
+    end
+    until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("LoadingBar").Visible == true or getfenv().test == false
+    repeat wait()
+    until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("LoadingBar").Visible == false or getfenv().test == false
+     wait(1)
+         local ship = game.Players.LocalPlayer.CurrentShip.Value
+     repeat wait()
+     until money ~= game:GetService("Players").LocalPlayer.PlayerGui.GlobalUI.Main.GameplayUI.Core.PlayerCash.PlayerCash.Text or getfenv().test == false or ship == nil
+     wait()
+     labeler.Text = "Respawning"
+     game:GetService("ReplicatedStorage").RemoteStorage.RemoteFunction:InvokeServer("SpawnShip", getfenv().ship, "Ocean Fall Port")
+     wait(5)
+     end
+     end
+elseif getdata() == "Vehicle-Transport" then
+    labeler.Text = "Vehicle Transport ship found"
+getfenv().ship = nil
+local r = require(game:GetService("StarterGui").GlobalUI.Main.Scripts.SpawnController)
+r:UpdateSpawnShips()
+spawn(function()
+while getfenv().test do
+	task.wait()
+	pcall(function()
+	if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") and getfenv().plswork ~= true and not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("CarLoading")  then
+		repeat wait()
+until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("LoadingBar").Visible == false or getfenv().test == false
+wait(2)
+		firesignal(game:GetService("Players").LocalPlayer.PlayerGui.PortGui["Vehicle-TransportMenu"].Loading.Load.MouseButton1Click)
+getfenv().plswork = true
+wait(5)
+	end
+	end)
+end
+end)
+spawn(function()
+while getfenv().test do
+	wait(0.1)
+	pcall(function()
+if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") and getfenv().plswork2 ~= true and not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("CarLoading") then
+		repeat wait()
+until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("LoadingBar").Visible == false or getfenv().test == false
+wait(2)
+	firesignal(game:GetService("Players").LocalPlayer.PlayerGui.PortGui["Vehicle-TransportMenu"].Unloading.Unload.MouseButton1Click)
+getfenv().plswork2 = true
+wait(5)
+	end
+end)
+end
+end)
+spawn(function()
+while wait() do
+	pcall(function()
+if getfenv().ship == nil and game.Players.LocalPlayer.Character.Humanoid.SeatPart ~= nil then
+for i,v in pairs(getgc(true)) do
+if type(v) == "table" and rawget(v,"ID") == game.Players.LocalPlayer.CurrentShip.Value:GetAttribute("ShipID") and getfenv().ship == nil then
+getfenv().ship = v
+print(getfenv().ship)
+	end
+end
+end
+end)
+end
+end)
+while getfenv().test do
+	wait(3)
+	warn(getfenv().ship)
+	  getfenv().rat = nil
+    local distance = math.huge
+    for a,b in pairs(game:GetService("Workspace").Ports:GetDescendants()) do
+        if b.Name == "DockingArea"  then
+    local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+    if Dist < distance then
+    distance = Dist
+    getfenv().rat = b
+    end
+    end
+    end
+    if getfenv().rat.Parent.Parent.Name ~= "Stanley Harbor" then
+		print(getfenv().ship)
+game:GetService("ReplicatedStorage").RemoteStorage.RemoteFunction:InvokeServer("SpawnShip", getfenv().ship, "Stanley Harbor")
+    wait(3)
+    game:GetService("Players").LocalPlayer.CurrentShip.Value.ControlPanel.VehicleSeat:Sit(game.Players.LocalPlayer.Character.Humanoid)
+    end
+repeat wait()
+until game.Players.LocalPlayer.Character.Humanoid.SeatPart ~= nil or getfenv().test == false
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+ getfenv().rat = nil
+    local distance = math.huge
+    for a,b in pairs(workspace.Ports["Stanley Harbor"].CargoLoaders:GetChildren()) do
+        if b.Name == "DockingArea" and b:FindFirstChild("Vehicle-Transport")  then
+    local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+    if Dist < distance then
+    distance = Dist
+    getfenv().rat = b
+    end
+    end
+    end
+	dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position+Vector3.new(0,0,100)).magnitude
+ print(dist)
+ if getdata() ~= "Vehicle-Transport" then
+local CoreGui = game:GetService("StarterGui")
+    
+    CoreGui:SetCore("SendNotification", {
+        Title = "Wrong Ship Class";
+        Text = "Spawn a Vehicle-Transport Class Ship";
+        Duration = 5;
+    })
+	task.wait(5)
+	elseif getdata() == "Vehicle-Transport" then
+        wait()
+        labeler.Text = "Moving to port"
+ repeat wait()
+	local ship = game.Players.LocalPlayer.CurrentShip.Value
+ local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = ship:GetPrimaryPartCFrame()
+			
+TweenValue.Changed:Connect(function()
+	   if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+end)
+			
+getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=CFrame.new(getfenv().rat.Position)+Vector3.new(0,0,100)})
+getfenv().tween:Play()
+ getfenv().tween.Completed:Wait()
+wait(1)
+	dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position+Vector3.new(0,0,100)).magnitude
+ print(dist.."right")
+until dist < 250 or getfenv().test == false
+labeler.Text = "Requesting dock"
+repeat wait()
+firesignal(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Menus.DockingRequest.Dock.MouseButton1Click)
+
+until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") or getfenv().test == false
+labeler.Text = "Waiting for ui"
+repeat wait()
+until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("PortMainMenu").Visible == true or getfenv().test == false
+firesignal(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortMainMenu.MenuButtons.CargoManager.Button.MouseButton1Click)
+wait()
+repeat wait()
+until getfenv().plswork == true or getfenv().test == false
+getfenv().plswork = false
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+labeler.Text = "Getting Vehicles"
+repeat wait()
+until ship:FindFirstChild("Beam") or getfenv().test == false
+repeat wait()
+print("trying")
+    local ship = game.Players.LocalPlayer.CurrentShip.Value
+    getfenv().rat2 = nil
+    local distance = math.huge
+    local ship = game.Players.LocalPlayer.CurrentShip.Value
+    for a,b in pairs(ship:GetDescendants()) do
+            if b.Name == "LoadingCarModel" and b.PrimaryPart ~= nil  then
+        local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.PrimaryPart.Position).magnitude
+        if Dist < distance then
+        distance = Dist
+        getfenv().rat2 = b
+        end
+        end
+    end
+	if getfenv().rat2 ~= nil then
+getfenv().rat2:PivotTo(ship.LoadingSpot.CFrame)
+end
+    until not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("CarLoading") or getfenv().test == false
+	wait(1)
+    labeler.Text = "Undocking ship"
+    firesignal(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortMainMenu.MenuButtons.Undock.Button.MouseButton1Click)
+repeat wait()
+until game.Players.LocalPlayer.CurrentShip.Value:GetAttribute("IsDocked") == false or getfenv().test == false
+wait()
+labeler.Text = "Ship undocked"
+wait()
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(1877.6959228515625, 239.53619384765625, 8593.2412109375)).magnitude
+getfenv().forlocres =Vector3.new(1877.6959228515625, 239.53619384765625, 8593.2412109375)
+
+repeat wait()
+    labeler.Text = "Moving to destination"
+print(dist)
+   local ship = game.Players.LocalPlayer.CurrentShip.Value
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = ship:GetPrimaryPartCFrame()
+           
+TweenValue.Changed:Connect(function()
+      if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+end)     
+getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=CFrame.new(1877.6959228515625, 239.53619384765625, 8593.2412109375)})
+getfenv().tween:Play()
+getfenv().tween.Completed:Wait()
+wait(2)
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(1877.6959228515625, 239.53619384765625, 8593.2412109375)).magnitude
+print(dist)
+until dist < 300 or getfenv().test == false
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(5339.44384765625, 240.30880737304688, 17058.298828125)).magnitude
+getfenv().forlocres =Vector3.new(5339.44384765625, 240.30880737304688, 17058.298828125)
+
+print(dist)
+repeat wait()
+   local ship = game.Players.LocalPlayer.CurrentShip.Value
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = ship:GetPrimaryPartCFrame()
+           
+TweenValue.Changed:Connect(function()
+      if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+end)
+           
+getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=CFrame.new(5339.44384765625, 240.30880737304688, 17058.298828125)})
+getfenv().tween:Play()
+getfenv().tween.Completed:Wait()
+wait(2)
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(5339.44384765625, 240.30880737304688, 17058.298828125)).magnitude
+until dist < 300 or getfenv().test == false
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(15875.54296875, 236.8018341064453, 22709.640625)).magnitude
+getfenv().forlocres =Vector3.new(15875.54296875, 236.8018341064453, 22709.640625)
+
+print(dist)
+repeat wait()
+   local ship = game.Players.LocalPlayer.CurrentShip.Value
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = ship:GetPrimaryPartCFrame()
+           
+TweenValue.Changed:Connect(function()
+      if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+end)
+           
+getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=CFrame.new(15875.54296875, 236.8018341064453, 22709.640625)})
+getfenv().tween:Play()
+getfenv().tween.Completed:Wait()
+wait(2)
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(15875.54296875, 236.8018341064453, 22709.640625)).magnitude
+until dist < 300 or getfenv().test == false
+wait()
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(19768.162109375, 253.79214477539062, 22047.828125)).magnitude
+getfenv().forlocres =Vector3.new(19768.162109375, 253.79214477539062, 22047.828125)
+
+print(dist)
+repeat wait()
+   local ship = game.Players.LocalPlayer.CurrentShip.Value
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = ship:GetPrimaryPartCFrame()
+           
+TweenValue.Changed:Connect(function()
+      if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+end)
+           
+getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=CFrame.new(19768.162109375, 253.79214477539062, 22047.828125)})
+getfenv().tween:Play()
+getfenv().tween.Completed:Wait()
+wait(2)
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(19768.162109375, 253.79214477539062, 22047.828125)).magnitude
+until dist < 300 or getfenv().test == false
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(22855.5859375, 248.23973083496094, 21691.0234375)).magnitude
+getfenv().forlocres =Vector3.new(22855.5859375, 248.23973083496094, 21691.0234375)
+
+print(dist)
+repeat wait()
+   local ship = game.Players.LocalPlayer.CurrentShip.Value
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = ship:GetPrimaryPartCFrame()
+           
+TweenValue.Changed:Connect(function()
+      if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+end)
+           
+getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=CFrame.new(22855.5859375, 248.23973083496094, 21691.0234375)})
+getfenv().tween:Play()
+getfenv().tween.Completed:Wait()
+wait(2)
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-Vector3.new(22855.5859375, 248.23973083496094, 21691.0234375)).magnitude
+until dist < 300 or getfenv().test == false
+ getfenv().rat = nil
+   local distance = math.huge
+   for a,b in pairs(workspace.Ports["Norfolk Port"].CargoLoaders:GetChildren()) do
+       if b.Name == "DockingArea" and b:FindFirstChild("Vehicle-Transport")  then
+   local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+   if Dist < distance then
+   distance = Dist
+   getfenv().rat = b
+   end
+   end
+   end
+   dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+   getfenv().forlocres =getfenv().rat.Position
+print(dist)
+repeat wait()
+   local ship = game.Players.LocalPlayer.CurrentShip.Value
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = ship:GetPrimaryPartCFrame()
+           
+TweenValue.Changed:Connect(function()
+      if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+end)
+           
+getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=CFrame.new(getfenv().rat.Position)})
+getfenv().tween:Play()
+getfenv().tween.Completed:Wait()
+wait(2)
+dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-getfenv().rat.Position).magnitude
+until dist < 100.5 or getfenv().test == false
+wait(3)
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+ship.ControlPanel.VehicleSeat:Sit(game.Players.LocalPlayer.Character.Humanoid)
+wait(2)
+repeat wait()
+    labeler.Text = "Requesting dock"
+firesignal(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Menus.DockingRequest.Dock.MouseButton1Click)
+
+until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("PortGui") or getfenv().test == false
+repeat wait()
+until game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("PortGui"):WaitForChild("PortMainMenu").Visible == true or getfenv().test == false
+labeler.Text = "Waiting for ui"
+wait(5)
+firesignal(game:GetService("Players").LocalPlayer.PlayerGui.PortGui.PortMainMenu.MenuButtons.CargoManager.Button.MouseButton1Click)
+wait()
+repeat wait()
+until getfenv().plswork2 == true or getfenv().test == false
+getfenv().plswork2 = false
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+repeat wait()
+until ship:FindFirstChild("Beam") or getfenv().test == false
+labeler.Text = "Unloading ship"
+repeat wait()
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+getfenv().rat = nil
+local distance = math.huge
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+for a,b in pairs(game:GetService("Workspace").Ports:GetDescendants()) do
+        if b.Name == "LoadingSpot"  then
+    local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.Position).magnitude
+    if Dist < distance then
+    distance = Dist
+    getfenv().rat = b
+    end
+    end
+end
+getfenv().rat2 = nil
+local distance = math.huge
+local ship = game.Players.LocalPlayer.CurrentShip.Value
+for a,b in pairs(ship:GetDescendants()) do
+        if b.Name == "LoadingCarModel" and b.PrimaryPart ~= nil  then
+    local Dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position - b.PrimaryPart.Position).magnitude
+    if Dist < distance then
+    distance = Dist
+    getfenv().rat2 = b
+    end
+    end
+end
+if getfenv().rat2 ~= nil then
+getfenv().rat2:PivotTo(getfenv().rat.CFrame)
+end
+until not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("CarLoading") or getfenv().test == false
+wait()
+end
+ end
+elseif getdata() == "Heavy-Lifter" then
+    labeler.Text = "Heavy Lifter found"
+getfenv().ship = nil
+    while getfenv().test do
+        local ship = game.Players.LocalPlayer.CurrentShip.Value
+    wait(3)
+    labeler.Text = "Getting cargo info"
+    firesignal(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.ShipControls.Controls.HeavyLift.MouseButton1Click)
+    repeat wait()
+    until game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Menus.HeavyLiftLoadPicker.Visible == true
+    wait(1)
+    wait()
+    local picked = nil
+        local smaller = 0
+        for a,b in pairs(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Menus.HeavyLiftLoadPicker.ScrollingFrame:GetChildren()) do
+            if b.Name == "LoadItem"   then
+                local text = string.gsub(tostring(b.Payment.Payout.Text:split("$")[2]),",","")
+                local num = tonumber(text)
+                print(num)
+        if num > smaller then
+        smaller = num
+        picked = b
+        print(smaller)
+        end
+        end
+        end
+        labeler.Text = "Cargo: "..picked.Payment.Payout.Text
+        print(picked.Payment.Payout.Text)
+        firesignal(picked.Load.MouseButton1Click)
+    repeat wait()
+    until game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Menus.HeavyLiftLoadViewer.Visible == true
+    game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.Menus.HeavyLiftLoadViewer.Visible = false
+    repeat wait()
+    until ship:FindFirstChild("HeavyLiftLoad")
+    wait(1)
+    labeler.Text = "Moving to Pickup"
+        local location = ship.HeavyLiftLoad.WorldPivot
+        getfenv().forlocres = location.Position
+    repeat wait()
+    local ship = game.Players.LocalPlayer.CurrentShip.Value
+    dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-location.Position).magnitude
+    print(dist)
+    local TweenService = game:GetService("TweenService")
+    local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+    
+    local TweenValue = Instance.new("CFrameValue")
+    TweenValue.Value = ship.WorldPivot
+               
+    TweenValue.Changed:Connect(function()
+          if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+    end)     
+    getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=location})
+     getfenv().tween:Play()
+     getfenv().tween.Completed:Wait()
+    wait(3)
+until (ship.PrimaryPart.Position-location.Position).magnitude < 300
+labeler.Text = "Waiting"
+    wait(5)
+    labeler.Text = "Ship submerging"
+    ship.Storage.RemoteEvent:FireServer("Submerge")
+    repeat wait()
+    until ship:GetAttribute("Submerged") == "true"
+    labeler.Text = "Ship submerged"
+    print("Ship submerged")
+    repeat wait(0.1)
+        labeler.Text = "Trying to lift cargo"
+        local ship = game.Players.LocalPlayer.CurrentShip.Value
+        if ship:GetAttribute("Submerged") == "true" then
+        game:GetService("VirtualInputManager"):SendKeyEvent(true,"D",false,game)
+        firesignal(game:GetService("Players").LocalPlayer.PlayerGui.ShipControlGui.ShipControls.HeavyLifterControls.Sink.MouseButton1Click)
+        end
+        until ship:GetAttribute("Submerged") ~= "true"
+        game:GetService("VirtualInputManager"):SendKeyEvent(false,"D",false,game)
+        repeat wait()
+        until ship:GetAttribute("Submerged") == "false"
+        labeler.Text = "Cargo lifted"
+        wait(1)
+    for i,v in pairs(workspace.HeavyLiftLoads:GetDescendants()) do
+        if v.Name == "UnloadArea" and v.Transparency ~= 1 then
+            labeler.Text = "Moving to drop off"
+            print(v)
+            repeat wait()
+            local ship = game.Players.LocalPlayer.CurrentShip.Value
+            dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-v.Position).magnitude
+            print(dist)
+            getfenv().forlocres = v.Position
+            local TweenService = game:GetService("TweenService")
+            local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+            
+            local TweenValue = Instance.new("CFrameValue")
+            TweenValue.Value = ship.WorldPivot
+                       
+            TweenValue.Changed:Connect(function()
+                  if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+            end)     
+            getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=v.CFrame})
+            getfenv().tween:Play()
+            getfenv().tween.Completed:Wait()
+        until (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-v.Position).magnitude < 400
+            ship.Storage.RemoteEvent:FireServer("Submerge")
+            labeler.Text = "Ship submerging"
+    repeat wait()
+    until ship:GetAttribute("Submerged") == "true"
+    labeler.Text = "Ship submerged"
+    wait(2)
+    labeler.Text = "Moving ship from cargo"
+    getfenv().forlocres = nil
+    local ship = game.Players.LocalPlayer.CurrentShip.Value
+    dist = (game.Players.LocalPlayer.CurrentShip.Value.PrimaryPart.Position-v.Position+Vector3.new(0,0,300)).magnitude
+    print(dist)
+    local TweenService = game:GetService("TweenService")
+    local TweenInfoToUse = TweenInfo.new(dist/speed(), Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+    
+    local TweenValue = Instance.new("CFrameValue")
+    TweenValue.Value = ship.WorldPivot
+               
+    TweenValue.Changed:Connect(function()
+          if getfenv().tween.PlaybackState == Enum.PlaybackState.Cancelled then
+                 TweenValue:Disconnect()
+                else
+                ship:PivotTo(TweenValue.Value)
+                end
+    end)     
+    getfenv().tween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=v.CFrame+Vector3.new(0,0,300)})
+    getfenv().tween:Play()
+    getfenv().tween.Completed:Wait()
+    labeler.Text = "Waiting"
+    wait(3)
+    ship.Storage.RemoteEvent:FireServer("Submerge")
+        break
+        end
+    end
+    game:GetService("ReplicatedStorage").RemoteStorage.RemoteFunction:InvokeServer("SpawnShip", getfenv().ship, "Ocean Fall Port")
+    wait(3)
+    repeat wait()
+    game:GetService("Players").LocalPlayer.CurrentShip.Value.ControlPanel.VehicleSeat:Sit(game.Players.LocalPlayer.Character.Humanoid)
+    until game.Players.LocalPlayer.Character.Humanoid.SeatPart~= nil
+    end
+else
+    labeler.Text = "Unsupported ship class found"
+end
+end)
+local example = library:CreateWindow({
+    text = "Stuff"
+  })
+  example:AddToggle("Auto Tp into ship", function(state)
+    getfenv().resit = (state and true or false)
+  while getfenv().resit do
+task.wait()
+    pcall(function()
+if game.Players.LocalPlayer.CurrentShip.Value ~= nil and game.Players.LocalPlayer.Character.Humanoid.SeatPart == nil and not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("CarLoading") then
+    game.Players.LocalPlayer.CurrentShip.Value.ControlPanel.VehicleSeat:Sit(game.Players.LocalPlayer.Character.Humanoid)
+game:GetService("ReplicatedStorage").RemoteStorage.RemoteEvent:FireServer("TeleportToShip")
+end
+end)
+end
+end)
+
+
+
