@@ -3,7 +3,7 @@ repeat task.wait()
 until game:IsLoaded() and game.Players.LocalPlayer.Character ~= nil and workspace.RuntimeItems:FindFirstChild("GoldBar")
 wait(1)
 Instance.new("Message", workspace).Text = "You need to wait 10-15 minutes before being able to activate the lever, the script will automatically do this. Just sit back and relax.\ndiscord.gg/lunor"
- queueonteleport(game:HttpGet("https://raw.githubusercontent.com/Marco8643/test/refs/heads/main/%3A"))
+ queueonteleport(game:HttpGet("https://raw.githubusercontent.com/Marco8643/test/refs/heads/main/%3A%3A"))
       spawn(function()
 while wait(5) do
 
