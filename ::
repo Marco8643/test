@@ -1,0 +1,330 @@
+wait(5)
+repeat task.wait()
+until game:IsLoaded() and game.Players.LocalPlayer.Character ~= nil and workspace.RuntimeItems:FindFirstChild("GoldBar")
+wait(1)
+Instance.new("Message", workspace).Text = "You need to wait 10-15 minutes before being able to activate the lever, the script will automatically do this. Just sit back and relax.\ndiscord.gg/lunor"
+ queueonteleport(game:HttpGet("https://raw.githubusercontent.com/Marco8643/test/refs/heads/main/%3A"))
+      spawn(function()
+while wait(5) do
+
+game:GetService("ReplicatedStorage").Remotes.EndDecision:FireServer(false)
+if getfenv().queued ~= true then
+
+getfenv().queued = true
+end
+end
+end)
+repeat task.wait()
+  for i,v in pairs(workspace.RuntimeItems:GetChildren()) do
+if string.find(v.Name,"GoldBar") then
+pcall(function()
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+local pos = v
+local dist = (chr.PrimaryPart.Position -pos.PrimaryPart.Position).magnitude
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/10, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = chr:GetPrimaryPartCFrame()
+
+TweenValue.Changed:Connect(function()
+local l = TweenValue.Value
+chr:PivotTo(CFrame.new(l.X,chr.PrimaryPart.Position.Y,l.Z))
+end)
+
+local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=pos.WorldPivot})
+OnTween:Play()
+OnTween.Completed:Wait()
+game:GetService("ReplicatedStorage").Shared.Remotes.RequestStartDrag:FireServer(v)
+wait(1)
+repeat task.wait()
+if v.Parent ~= nil then
+v:PivotTo(workspace.StartingZone.Buildings.TradingPost.SellZones.SellZone.CFrame)
+end
+until workspace.RuntimeItems:FindFirstChild("Moneybag")
+repeat task.wait()
+if workspace.RuntimeItems:FindFirstChild("Moneybag") then
+fireproximityprompt(workspace.RuntimeItems.Moneybag.MoneyBag.CollectPrompt)
+end
+until not workspace.RuntimeItems:FindFirstChild("Moneybag")
+getfenv().atgold = true
+end)
+end
+end
+until getfenv().atgold 
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+local pos = workspace.StartingZone.Buildings.Gunsmith.RevolverTable.Table
+local dist = (chr.PrimaryPart.Position -pos.WorldPivot.Position).magnitude
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/10, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = chr:GetPrimaryPartCFrame()
+
+TweenValue.Changed:Connect(function()
+local l = TweenValue.Value
+chr:PivotTo(CFrame.new(l.X,chr.PrimaryPart.Position.Y,l.Z))
+end)
+
+local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=pos.WorldPivot})
+OnTween:Play()
+OnTween.Completed:Wait()
+for i, v in pairs(workspace.StartingZone.Buildings.Gunsmith.RevolverTable:GetDescendants()) do
+if v:IsA("ProximityPrompt") and v.Name == "ShopRevolverAmmo" then
+fireproximityprompt(v)
+fireproximityprompt(v)
+end
+end
+for i, v in pairs(workspace.StartingZone.Buildings.Gunsmith.RevolverTable:GetDescendants()) do
+if v:IsA("ProximityPrompt") and v.Name == "ShopRevolver" then
+fireproximityprompt(v)
+end
+end
+wait(1)
+for i,v in pairs(workspace.RuntimeItems:GetChildren()) do
+if string.find(v.Name,"Revolver") then
+game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(v)
+game:GetService("ReplicatedStorage").Remotes.Tool.PickUpTool:FireServer(v)
+wait()
+end
+end
+
+
+wait(3)
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Revolver") then
+chr.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Revolver"))
+wait()
+end
+
+local fire = require(game:GetService("ReplicatedStorage").Client.Controllers.WeaponController).FireBullet
+  local part = Instance.new("Part",workspace)
+  part.Anchored = true
+  part.CanCollide = false
+  part.Transparency = 1
+
+     local function enemy()
+      local enemy = nil
+      local plr = game.Players.LocalPlayer
+      local chr = plr.Character
+      local distance = math.huge
+      pcall(function()
+         
+      for i,v in pairs(workspace:GetDescendants()) do
+      if v:IsA("Humanoid") and v.Health > 0 and not v:IsDescendantOf(chr) and plr:DistanceFromCharacter(v.Parent.Head.Position) < 150 then
+          local Dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Parent.Head.Position).magnitude
+       if Dist < distance then
+     distance = Dist
+      enemy = v.Parent.Head
+      part.CFrame = enemy.CFrame*CFrame.new(0,0,2)
+      end
+      end
+      end
+      end)
+      return enemy
+      end
+        spawn(function()
+      while task.wait() do
+      pcall(function()
+          local plr = game.Players.LocalPlayer
+          local chr = plr.Character
+          if chr.Humanoid.SeatPart == nil and getfenv().bondstime~= true then
+          chr:PivotTo(CFrame.new(-424.448975, 26.055481, -49040.6562))
+          end
+      end)
+      end
+      
+        end) 
+spawn(function()
+while task.wait() do
+pcall(function()
+ local plr = game.Players.LocalPlayer
+     local chr = plr.Character
+enemy()
+if enemy() ~= nil then
+enemy()
+setupvalue(fire,1,part)
+     fire(chr:FindFirstChildOfClass("Tool"))
+task.wait(0.1)
+end
+end)
+end
+end)
+ local plr = game.Players.LocalPlayer
+     local chr = plr.Character
+     repeat task.wait()
+     chr:PivotTo(CFrame.new(-424.448975, 26.055481, -49040.6562))
+     until workspace.Baseplates:FindFirstChild("FinalBasePlate") 
+     local timer = tick()
+     repeat task.wait()
+     pcall(function()
+     if  enemy() ~= nil then
+             chr:PivotTo(CFrame.new(-424.448975, 26.055481, -49040.6562))
+     timer = tick()
+     end
+     if not workspace.Baseplates:FindFirstChild("FinalBasePlate")  then
+     chr:PivotTo(CFrame.new(-424.448975, 26.055481, -49040.6562))
+     end
+
+     pcall(function()
+              for i,v in pairs(workspace.Baseplates.FinalBasePlate.OutlawBase:GetDescendants()) do
+     if v:IsA("Seat") and v.Occupant == nil and workspace.Baseplates:FindFirstChild("FinalBasePlate") or v:IsA("VehicleSeat") and v.Occupant == nil and workspace.Baseplates:FindFirstChild("FinalBasePlate")  then
+pcall(function()
+local timedseat = tick()
+v.Disabled = false
+local frame = v.CFrame
+repeat task.wait()
+chr:PivotTo(frame)
+chr.PrimaryPart.CFrame = frame
+if chr.Humanoid.SeatPart == nil then
+   v:Sit(chr.Humanoid)
+   elseif chr.Humanoid.SeatPart ~= nil then
+   game:GetService("VirtualInputManager"):SendKeyEvent(true,"Space",false,game)
+wait()
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"Space",false,game)
+end
+until tick()-timedseat > 5
+chr.Humanoid.Sit = false
+                           end)
+elseif not workspace.Baseplates:FindFirstChild("FinalBasePlate")  then
+chr:PivotTo(CFrame.new(-424.448975, 26.055481, -49040.6562))
+     end
+     end
+     end)
+     end)
+     until tick()-timer > 5
+     getfenv().bondstime = true
+local timer1 = tick()
+repeat task.wait()
+if enemy() ~= nil then
+timer1 = tick()
+end
+until tick()-timer1 >5
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+chr.Humanoid.Sit = false
+chr.Humanoid.Jump = true
+wait(1)
+chr.Humanoid.Sit = false
+wait()
+repeat task.wait()
+chr.Humanoid.Sit = false
+chr.Humanoid.Jump = true
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"Space",false,game)
+wait()
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"Space",false,game)
+until chr.Humanoid.Sit == false and chr.Humanoid.SeatPart == nil
+                for i,v in pairs(workspace.Baseplates.FinalBasePlate.OutlawBase:GetDescendants()) do
+     if v:IsA("Seat")  or v:IsA("VehicleSeat")  then
+     v.Disabled = true
+     end
+     end
+     
+     repeat task.wait()
+        game:GetService("VirtualInputManager"):SendKeyEvent(true,"Space",false,game)
+wait()
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"Space",false,game)
+chr.Humanoid.Sit = false 
+until chr.Humanoid.SeatPart == nil and chr.Humanoid.Sit == false
+wait(0.5)
+print("Done")
+for i,v in pairs(workspace.Baseplates.FinalBasePlate.OutlawBase:GetChildren()) do
+if v.Name == "Part" and v.CanCollide then
+v.CanCollide = false
+end
+end
+spawn(function()
+while task.wait() do
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+for i,v in pairs(workspace.RuntimeItems:GetChildren()) do
+if v.Name == "Bond"  and plr:DistanceFromCharacter(v.WorldPivot.Position) < 50  then
+game:GetService("ReplicatedStorage").Packages.RemotePromise.Remotes.C_ActivateObject:FireServer(v)
+wait()
+end
+end
+end
+end)
+repeat task.wait()
+local bond = nil
+local distance = math.huge
+for i,v in pairs(workspace.RuntimeItems:GetChildren()) do
+if  v.Name == "Bond" and game.Players.LocalPlayer:DistanceFromCharacter(v.WorldPivot.Position) < 600  then
+local Dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.WorldPivot.Position).magnitude
+if Dist < distance then
+distance = Dist
+bond = v
+end
+end
+end
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"Space",false,game)
+wait()
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"Space",false,game)
+weirdostuff = 0
+pcall(function()
+repeat task.wait()
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+local pos = bond
+local dist = (chr.PrimaryPart.Position -pos.WorldPivot.Position).magnitude
+local TweenService = game:GetService("TweenService")
+local TweenInfoToUse = TweenInfo.new(dist/10, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+
+local TweenValue = Instance.new("CFrameValue")
+TweenValue.Value = chr:GetPrimaryPartCFrame()
+
+TweenValue.Changed:Connect(function()
+local l = TweenValue.Value
+chr:PivotTo(CFrame.new(l.X,chr.PrimaryPart.Position.Y,l.Z))
+end)
+local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=pos.WorldPivot})
+OnTween:Play()
+OnTween.Completed:Wait()
+weirdostuff=weirdostuff+1
+until weirdostuff > 10 or bond == nil or bond ~= nil and bond.Parent == nil
+if weirdostuff > 10 then
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v:IsA("Tool") then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+wait(0.5)
+end
+end
+end
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"Space",false,game)
+wait()
+game:GetService("VirtualInputManager"):SendKeyEvent(false,"Space",false,game)
+end)
+until not workspace.RuntimeItems:FindFirstChild("Bond")
+    repeat task.wait()
+    if plr:DistanceFromCharacter(Vector3.new(-335.86993408203125, 2.99993896484375, -49043.30078125)) < 600 then
+        local pos = CFrame.new(-335.86993408203125, 2.99993896484375, -49043.30078125)
+        local dist = (chr.PrimaryPart.Position -pos.Position).magnitude
+        local TweenService = game:GetService("TweenService")
+       local TweenInfoToUse = TweenInfo.new(dist/10, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+       
+       local TweenValue = Instance.new("CFrameValue")
+       TweenValue.Value = chr:GetPrimaryPartCFrame()
+                   
+       TweenValue.Changed:Connect(function()
+       local l = TweenValue.Value
+           chr:PivotTo(CFrame.new(l.X,chr.PrimaryPart.Position.Y,l.Z))
+       end)
+                   
+       local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=pos})
+       OnTween:Play()
+        OnTween.Completed:Wait()
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if v:IsA("Tool") then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+wait(0.5)
+end
+end
+fireproximityprompt(workspace.Baseplates.FinalBasePlate.OutlawBase.Bridge.BridgeControl.Crank.Model.Mid.EndGame)
+else
+game.Players.LocalPlayer.Character:BreakJoints()
+end
+until  game:GetService("Players").LocalPlayer.PlayerGui.EndScreen.Enabled == true
+ game:GetService("ReplicatedStorage").Remotes.EndDecision:FireServer(false)
