@@ -1,0 +1,2 @@
+    game.Players.LocalPlayer:Kick("This Version of the script is Skidded. The Original script has been copied to your clipboard")
+        setclipboard('loadstring(game:HttpGet("https://raw.githubusercontent.com/Marco8642/science/refs/heads/ok/dead%20rails"))()')
