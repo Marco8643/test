@@ -41,7 +41,7 @@ if _G.test then
 local timer = tick()    
 network.RemoteEvents.Fishing:FireServer("Start")
    repeat task.wait()
-until tick()-timer > 22 or not _G.test 
+until tick()-timer > 25 or not _G.test 
 end
 if _G.test then
 local timer = tick()
