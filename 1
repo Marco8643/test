@@ -1,0 +1,9 @@
+for i,v in pairs(getgc(true)) do
+if type(v) == "table" then
+for i2,v2 in pairs(v) do
+if type(v2)== "string" and string.find(tostring(v2),"TrafficCollision") and type(i2) == "number" then
+rawset(v,i2,"zooanimals")
+end
+end
+end
+end
